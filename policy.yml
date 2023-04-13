@@ -1,0 +1,15 @@
+policies:
+  - name: root-user-login-detected
+    resource: account
+    description: |
+      Notifies Security and Cloud Admins teams on any AWS root user console logins
+    mode:
+       type: cloudtrail
+       events:
+          - ConsoleLogin
+    filters:
+       - type: event
+         key: "detail.userIdentity.type"
+         value_type: swap
+         op: in
+         value: Root
